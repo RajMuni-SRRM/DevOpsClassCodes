@@ -39,6 +39,13 @@ pipeline{
                    junit 'target/surefire-reports/*.xml'
                }
            }	
+	   }
+           stage('MetricCheck'){
+
+              steps{
+                  sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
+              }
+
           }
           stage('Package'){
 		  
