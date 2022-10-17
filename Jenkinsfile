@@ -59,10 +59,14 @@ pipeline{
           }
 	  stage('Build Docker Image'){
 	      steps{
-		      sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
-		      sh 'docker push ${IMAGE_NAME}:${BUILD_NUMBER}'
+		      sh 'docker build -t ${IMAGE_NAME}:V${BUILD_NUMBER} .'
+		      sh 'docker push ${IMAGE_NAME}:V${BUILD_NUMBER}'
 	      }
 	  }
-          
+	  post {
+	     success{
+		     sh 'docker rmi ${IMAGE_NAME}:V${BUILD_NUMBER}'
+	     }
+	  }
       }
 }
