@@ -57,17 +57,38 @@ pipeline{
                   sh 'mvn package'
               }
           }
-	  stage('Build Docker Image'){
-	      steps{
-		      sh 'docker build -t ${IMAGE_NAME}:V${BUILD_NUMBER} .'
-		      sh 'docker push ${IMAGE_NAME}:V${BUILD_NUMBER}'
-	      }
-	  }
+	  //stage('Build Docker Image'){
+	   //   steps{
+		//      sh 'docker build -t ${IMAGE_NAME}:V${BUILD_NUMBER} .'
+		  //    sh 'docker push ${IMAGE_NAME}:V${BUILD_NUMBER}'
+	      //}
+	  //}
 
+      //}
+      //post {
+	//  success{
+	  //    sh 'docker rmi ${IMAGE_NAME}:V${BUILD_NUMBER}'
+	    // }
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
       }
-      post {
-	  success{
-	      sh 'docker rmi ${IMAGE_NAME}:V${BUILD_NUMBER}'
-	     }
-	  }
+    }
+    stage('Deploy Image') {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
+   }
 }
