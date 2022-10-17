@@ -1,1 +1,1 @@
-web ansible_host=172.31.41.51 ansible_user=ec2-user intport=8080 extport=8080 imagename=20636/addreebook container_name=web
+web ansible_host=13.42.66.193 ansible_user=ec2-user intport=8080 extport=8080 imagename=20636/addreebook container_name=web
