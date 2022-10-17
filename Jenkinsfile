@@ -5,7 +5,10 @@ pipeline{
         maven 'mymaven'
     }
     environment {
-        IMAGE_NAME = '20636/addreebook'
+       // IMAGE_NAME = '20636/addreebook'
+        registry = "20636/addreebook"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
     }
 	agent any
       stages{
