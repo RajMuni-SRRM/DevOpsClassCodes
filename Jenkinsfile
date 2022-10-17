@@ -93,5 +93,10 @@ pipeline{
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
+    stage('Deploy docker image in DEV machine using ansible'){
+	    steps{
+		   ansiblePlaybook credentialsId: 'ec2user', installation: 'ansible', inventory: 'Project1/dev-inv', playbook: 'Project1/ansible-deploy.yml'
+	    }
+    }
    }
 }
