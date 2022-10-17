@@ -7,7 +7,7 @@ pipeline{
     environment {
        // IMAGE_NAME = '20636/addreebook'
         registry = "20636/addreebook"
-        registryCredential = 'dockerhub'
+        registryCredential = 'dockerhubcred'
         dockerImage = ''
     }
 	agent any
