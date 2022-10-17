@@ -15,10 +15,10 @@
     command: docker rm "{{ container_name }}"
     ignore_errors: true
     become_method: sudo
-  - name: Delete the Existing Images
-    command: "docker images -a | grep '{{ imagename }}' | awk '{print $3}' | xargs docker rmi"
-    ignore_errors: true
-    become_method: sudo    
+ # - name: Delete the Existing Images
+ #   command: "docker images -a | grep '{{ imagename }}' | awk '{print $3}' | xargs docker rmi"
+ #   ignore_errors: true
+ #   become_method: sudo    
   - name: run Image
     command: docker run -d -p "{{ intport }}":"{{ extport }}" --name web "{{ imagename }}":"{{ imageversion }}"
     become_method: sudo
