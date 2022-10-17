@@ -95,7 +95,7 @@ pipeline{
     }
     stage('Deploy docker image in DEV machine using ansible'){
 	    steps{
-		   ansiblePlaybook credentialsId: 'ec2user', extras: 'imageversion=${BUILD_NUMBER}', installation: 'ansible', inventory: 'Project1/dev-inv', playbook: 'Project1/ansible-deploy.yml'
+		   ansiblePlaybook credentialsId: 'ec2user', extras: '--extra-vars "imageversion=24"', installation: 'ansible', inventory: 'Project1/dev-inv', playbook: 'Project1/ansible-deploy.yml'
 	    }
     }
    }
