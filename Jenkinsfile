@@ -79,7 +79,7 @@ pipeline{
         }
       }
     }
-    stage('Deploy Image') {
+    stage('Push Image to docker hub') {
       steps{
          script {
             docker.withRegistry( '', registryCredential ) {
@@ -95,7 +95,7 @@ pipeline{
     }
     stage('Deploy docker image in DEV machine using ansible'){
 	    steps{
-		    ansiblePlaybook credentialsId: 'ec2user',disableHostKeyChecking: true, extras: '--extra-vars "imageversion=${BUILD_NUMBER}"', installation: 'ansible', inventory: 'dev-inv', playbook: 'ansible-deploy.yml'
+		    ansiblePlaybook credentialsId: 'ec2user',disableHostKeyChecking: true, extras: '--extra-vars "imageversion=${BUILD_NUMBER}" -vv', installation: 'ansible', inventory: 'dev-inv', playbook: 'ansible-deploy.yml'
 	    }
     }
    }
