@@ -17,8 +17,14 @@
  #   git: repo=https://github.com/Sonal0409/dockerdemo.git dest=/tmp/gitrepo
  # - name: Build Dockerfile
 #    command: chdir=/tmp/gitrepo docker build -t addressbook:ansible .
-  - name: delete old Image and container
-    command: docker stop web && docker rm web
+  - name: Stop old container if running
+    command: docker stop "{{ container_name }}"
     ignore_errors: true
+    become_method: sudo
+  - name: Delete the stopped container
+    command: docker rm "{{ container_name }}"
+    ignore_errors: true
+    become_method: sudo
   - name: run Image
-    command: docker run -d -P {{ intport }}:{{ extport }} --name web {{ imagename }}:{{ imageversion }}
+    command: docker run -d -p "{{ intport }}":"{{ extport }}" --name web "{{ imagename }}":"{{ imageversion }}"
+    become_method: sudo
