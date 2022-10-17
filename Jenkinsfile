@@ -4,6 +4,9 @@ pipeline{
         jdk 'myjava'
         maven 'mymaven'
     }
+    environment {
+        IMAGE_NAME = '20636/addreebook'
+    }
 	agent any
       stages{
            stage('Checkout'){
@@ -54,7 +57,12 @@ pipeline{
                   sh 'mvn package'
               }
           }
-	     
+	  stage('Build Docker Image'){
+	      steps{
+		      sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
+		      sh 'docker push ${IMAGE_NAME}:${BUILD_NUMBER}'
+	      }
+	  }
           
       }
 }
