@@ -63,10 +63,11 @@ pipeline{
 		      sh 'docker push ${IMAGE_NAME}:V${BUILD_NUMBER}'
 	      }
 	  }
-	  post {
-	     success{
-		     sh 'docker rmi ${IMAGE_NAME}:V${BUILD_NUMBER}'
+
+      }
+      post {
+	  success{
+	      sh 'docker rmi ${IMAGE_NAME}:V${BUILD_NUMBER}'
 	     }
 	  }
-      }
 }
