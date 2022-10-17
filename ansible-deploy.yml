@@ -18,7 +18,7 @@
  # - name: Build Dockerfile
 #    command: chdir=/tmp/gitrepo docker build -t addressbook:ansible .
   - name: delete old Image and container
-    command: docker stop web && docker rm web && docker rmi {{ imagename }}:{{ imageversion }}-1
+    command: docker stop web && docker rm web
     ignore_errors: true
   - name: run Image
     command: docker run -d -P {{ intport }}:{{ extport }} --name web {{ imagename }}:{{ imageversion }}
