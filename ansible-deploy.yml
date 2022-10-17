@@ -16,7 +16,7 @@
     ignore_errors: true
     become_method: sudo
   - name: Delete the Existing Images
-    command: docker images -a | grep "{{ imagename }}" | awk '{print $3}' | xargs docker rmi
+    command: "docker images -a | grep '{{ imagename }}' | awk '{print $3}' | xargs docker rmi"
     ignore_errors: true
     become_method: sudo    
   - name: run Image
